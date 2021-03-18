@@ -25,5 +25,7 @@ namespace Stride.Rendering
         public ModelNodeFlags Flags;
 
         internal bool RenderingEnabledRecursive;
+
+        public Quaternion AdditionalRotation;
     }
 }
