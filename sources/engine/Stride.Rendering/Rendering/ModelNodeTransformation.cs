@@ -26,6 +26,10 @@ namespace Stride.Rendering
 
         internal bool RenderingEnabledRecursive;
 
-        public Quaternion AdditionalRotation;
+        /// <summary>
+        /// This rotation is not updated by the animation system and can be used by scripts to influence the rotation property of
+        /// <see cref="ModelNodeTransformation.Transform"/>. The behaviour is controlled using the <see cref="ModelNodeFlags.CustomRotationOverride"/> flag.
+        /// </summary>
+        public Quaternion CustomRotation;
     }
 }

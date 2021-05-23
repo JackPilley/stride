@@ -65,7 +65,7 @@ namespace Stride.Rendering
                 nodeTransformations[index].Transform = nodes[index].Transform;
                 nodeTransformations[index].Flags = nodes[index].Flags;
                 nodeTransformations[index].RenderingEnabledRecursive = true;
-                nodeTransformations[index].AdditionalRotation = Quaternion.Identity;
+                nodeTransformations[index].CustomRotation = Quaternion.Identity;
                 UpdateLocalMatrix(ref nodeTransformations[index]);
             }
 
@@ -146,7 +146,14 @@ namespace Stride.Rendering
         private static void UpdateLocalMatrix(ref ModelNodeTransformation node)
         {
             var scaling = node.Transform.Scale;
-            var rotation = node.Transform.Rotation * node.AdditionalRotation;
+            Quaternion rotation;
+
+            //Bit of a hack to let us override the animation system with our own rotations
+            if((node.Flags & ModelNodeFlags.CustomRotationOverride) == ModelNodeFlags.CustomRotationOverride)
+                rotation = node.CustomRotation;
+            else
+                rotation = node.Transform.Rotation * node.CustomRotation;
+
             Matrix.Transformation(ref scaling, ref rotation, ref node.Transform.Position, out node.LocalMatrix);
             node.IsScalingNegative = (scaling.X < 0.0f) ^ (scaling.Y < 0.0f) ^ (scaling.Z < 0.0f);
         }

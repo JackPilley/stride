@@ -28,6 +28,12 @@ namespace Stride.Rendering
         OverrideWorldMatrix = 4,
 
         /// <summary>
+        /// If true, the <see cref="ModelNodeTransformation.CustomRotation"/> is used instead of the rotation from <see cref="ModelNodeTransformation.Transform"/>.
+        /// Otherwise, the custom rotation is multiplied with the transform's rotation.
+        /// </summary>
+        CustomRotationOverride = 8,
+
+        /// <summary>
         /// The default flags.
         /// </summary>
         Default = EnableTransform | EnableRender,       
