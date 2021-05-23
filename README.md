@@ -1,11 +1,10 @@
+![Stride](sources/data/images/Logo/stride-logo-readme.png)
+
 ## Should you use this fork?
 
 Probably not. I'm making changes to the engine that I find helpful, but will probably make the engine less useful for other people.
 
-=======
-![Stride](sources/data/images/Logo/stride-logo-readme.png)
-=======
-
+## About
 Welcome to the Stride source code repository!
 
 Stride is an open-source C# game engine for realistic rendering and VR. 
