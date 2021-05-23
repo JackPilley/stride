@@ -1,3 +1,8 @@
+## Should you use this fork?
+
+Probably not. I'm making changes to the engine that I find helpful, but will probably make the engine less useful for other people.
+
+=======
 ![Stride](sources/data/images/Logo/stride-logo-readme.png)
 =======
 
@@ -15,7 +20,7 @@ To learn more about Stride, visit [stride3d.net](https://stride3d.net/).
 
 ### .NET Foundation
 
-This project is supported by the [.NET Foundation](https://dotnetfoundation.org).
+The original project is supported by the [.NET Foundation](https://dotnetfoundation.org).
 
 ### License
 
@@ -23,24 +28,20 @@ Stride is covered by the [MIT License](LICENSE.md) unless stated otherwise (i.e.
 
 You can find the list of third party projects [here](THIRD%20PARTY.md).
 
-Contributors need to sign the following [Contribution License Agreement](docs/ContributorLicenseAgreement.md).
+### Contribution
 
-### Code of conduct
-
-Stride being a [.NET Foundation](https://www.dotnetfoundation.org/) project, it has adopted the code of conduct defined by the Contributor Covenant to clarify expected behavior in our community.
-
-For more information see the [.NET Foundation Code of Conduct](https://dotnetfoundation.org/code-of-conduct). 
+I am not accepting contributions on this fork, submit changes to the original project.
 
 ## Documentation
 
-Find explanations and information about Stride:
+This documentation is for the original project, it mostly holds true for this fork:
 * [Stride Manual](https://doc.stride3d.net/latest/manual/index.html)
 * [API Reference](https://doc.stride3d.net/latest/api/index.html)
 * [Release Notes](https://doc.stride3d.net/latest/ReleaseNotes/index.html)
 
 ## Community
 
-Ask for help or report issues:
+These links are for the original project, not this fork:
 * [Chat with the community on Discord](https://discord.gg/f6aerfE) [![Join the chat at https://discord.gg/f6aerfE](https://img.shields.io/discord/500285081265635328.svg?style=flat&logo=discord&label=discord)](https://discord.gg/f6aerfE)
 * [Discuss topics on our forums](http://forums.stride3d.net/)
 * [Report engine issues](https://github.com/stride3d/stride/issues)
@@ -89,24 +90,3 @@ If building failed:
 * Close VS, clear the nuget cache (in your cmd `dotnet nuget locals all --clear`), delete the hidden `.vs` folder inside `\build` and the files inside `bin\packages`, kill any msbuild and other vs processes, build the whole solution then build and run GameStudio.
 
 Do note that test solutions might fail but it should not prevent you from building `Stride.GameStudio`.
-
-### Contribution Guidelines
-
-Please check our [Contributing Guidelines](docs/CONTRIBUTING.md).
-
-### Build Status
-
-|Branch| **master** |
-|:--:|:--:|
-|Windows D3D11|<a href="https://teamcity.stride3d.net/viewType.html?buildTypeId=Engine_BuildWindowsD3d11&branch=master&guest=1"><img src="https://teamcity.stride3d.net/app/rest/builds/buildType:(id:Engine_BuildWindowsD3d11),branch:master/statusIcon"/></a>
-|Windows D3D12|<a href="https://teamcity.stride3d.net/viewType.html?buildTypeId=Engine_BuildWindowsD3d12&branch=master&guest=1"><img src="https://teamcity.stride3d.net/app/rest/builds/buildType:(id:Engine_BuildWindowsD3d12),branch:master/statusIcon"/></a>
-|Windows Vulkan|<a href="https://teamcity.stride3d.net/viewType.html?buildTypeId=Engine_BuildWindowsVulkan&branch=master&guest=1"><img src="https://teamcity.stride3d.net/app/rest/builds/buildType:(id:Engine_BuildWindowsVulkan),branch:master/statusIcon"/></a>
-|Windows OpenGL|<a href="https://teamcity.stride3d.net/viewType.html?buildTypeId=Engine_BuildWindowsOpenGL&branch=master&guest=1"><img src="https://teamcity.stride3d.net/app/rest/builds/buildType:(id:Engine_BuildWindowsOpenGL),branch:master/statusIcon"/></a>
-|Windows OpenGL ES|<a href="https://teamcity.stride3d.net/viewType.html?buildTypeId=Engine_BuildWindowsOpenGLES&branch=master&guest=1"><img src="https://teamcity.stride3d.net/app/rest/builds/buildType:(id:Engine_BuildWindowsOpenGLES),branch:master/statusIcon"/></a>
-|UWP|<a href="https://teamcity.stride3d.net/viewType.html?buildTypeId=Engine_BuildWindowsUWP&branch=master&guest=1"><img src="https://teamcity.stride3d.net/app/rest/builds/buildType:(id:Engine_BuildWindowsUWP),branch:master/statusIcon"/></a>
-|iOS|<a href="https://teamcity.stride3d.net/viewType.html?buildTypeId=Engine_BuildiOS&branch=master&guest=1"><img src="https://teamcity.stride3d.net/app/rest/builds/buildType:(id:Engine_BuildiOS),branch:master/statusIcon"/></a>
-|Android|<a href="https://teamcity.stride3d.net/viewType.html?buildTypeId=Engine_BuildAndroid&branch=master&guest=1"><img src="https://teamcity.stride3d.net/app/rest/builds/buildType:(id:Engine_BuildAndroid),branch:master/statusIcon"/></a>
-|Linux Vulkan|<a href="https://teamcity.stride3d.net/viewType.html?buildTypeId=Engine_BuildLinuxVulkan&branch=master&guest=1"><img src="https://teamcity.stride3d.net/app/rest/builds/buildType:(id:Engine_BuildLinuxVulkan),branch:master/statusIcon"/></a>
-|Linux OpenGL|<a href="https://teamcity.stride3d.net/viewType.html?buildTypeId=Engine_BuildLinuxOpenGL&branch=master&guest=1"><img src="https://teamcity.stride3d.net/app/rest/builds/buildType:(id:Engine_BuildLinuxOpenGL),branch:master/statusIcon"/></a>
-|Tests Windows Simple| <a href="https://teamcity.stride3d.net/viewType.html?buildTypeId=Engine_Tests_WindowsSimple&branch=master&guest=1"><img src="https://teamcity.stride3d.net/app/rest/builds/buildType:(id:Engine_Tests_WindowsSimple),branch:master/statusIcon"/></a>
-|Tests Windows D3D11|<a href="https://teamcity.stride3d.net/viewType.html?buildTypeId=Engine_Tests_WindowsD3D11&branch=master&guest=1"><img src="https://teamcity.stride3d.net/app/rest/builds/buildType:(id:Engine_Tests_WindowsD3D11),branch:master/statusIcon"/></a> 
