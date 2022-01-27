@@ -94,7 +94,7 @@ namespace Stride.VisualStudio.Commands
                         return null;
 
                     var commandAssembly = stridePackageInfo.SdkPaths.First(x => Path.GetFileNameWithoutExtension(x) == "Stride.VisualStudio.Commands");
-                    var commandExecutable = Path.ChangeExtension(commandAssembly, ".exe"); // .NET Core: .dll => .exe
+                    var commandExecutable = LoaderToolLocator.GetExecutable(commandAssembly); // .NET Core: .dll => .exe
 
                     var startInfo = new ProcessStartInfo
                     {
@@ -171,17 +171,13 @@ namespace Stride.VisualStudio.Commands
             // Try to find the package with the expected version
             if (packageInfo.ExpectedVersion != null && packageInfo.ExpectedVersion >= MinimumVersion)
             {
-                // Try net5.0
+                // Try both net6.0 and net472
                 var success = false;
-                foreach (var framework in new[] { ".NETCoreApp,Version=v5.0" })
+                foreach (var folder in new[] { "net6.0-windows7.0", "net472" })
                 {
                     var logger = new Logger();
                     var solutionRoot = Path.GetDirectoryName(solution);
-
-                    var nugetFramework = NuGetFramework.ParseFrameworkName(framework, DefaultFrameworkNameProvider.Instance);
-                    nugetFramework = new NuGetFramework(nugetFramework.Framework, nugetFramework.Version, "windows", new Version("7.0"));
-
-                    var (request, result) = await Task.Run(() => RestoreHelper.Restore(logger, nugetFramework, "win", packageName, new VersionRange(packageInfo.ExpectedVersion.ToNuGetVersion()), solutionRoot));
+                    var (request, result) = await Task.Run(() => RestoreHelper.Restore(logger, NuGetFramework.ParseFolder(folder, DefaultFrameworkNameProvider.Instance), "win", packageName, new VersionRange(packageInfo.ExpectedVersion.ToNuGetVersion()), solutionRoot));
                     if (result.Success)
                     {
                         packageInfo.SdkPaths.AddRange(RestoreHelper.ListAssemblies(result.LockFile));
