@@ -26,6 +26,8 @@ using Stride.Editor;
 using Stride.Engine;
 using Stride.Core.Assets.Templates;
 using Stride.Core.Packages;
+using Stride.Editor.Annotations;
+using Stride.Editor.Preview.View;
 
 namespace Stride.Assets.Presentation
 {
@@ -36,12 +38,14 @@ namespace Stride.Assets.Presentation
         /// </summary>
         private class ComponentTypeComparer : EqualityComparer<Type>
         {
-            public new static readonly ComponentTypeComparer Default = new ComponentTypeComparer();
+            public static new readonly ComponentTypeComparer Default = new ComponentTypeComparer();
 
             /// <summary>
             /// Compares two component types and returns <c>true</c> if the types match, i.e.:
-            /// - both types are identical
-            /// - first type is a subclass of the second type (e.g. StartupScript is a subclass of ScriptComponent)
+            /// <list type="bullet">
+            /// <item>both types are identical</item>
+            /// <item>first type is a subclass of the second type (e.g. StartupScript is a subclass of ScriptComponent)</item>
+            /// </list>
             /// </summary>
             public override bool Equals([NotNull] Type x, [NotNull] Type y)
             {
@@ -181,15 +185,15 @@ namespace Stride.Assets.Presentation
             session.AssetViewProperties.RegisterNodePresenterCommand(new SetEntityReferenceCommand());
             session.AssetViewProperties.RegisterNodePresenterCommand(new SetComponentReferenceCommand());
             session.AssetViewProperties.RegisterNodePresenterCommand(new SetSymbolReferenceCommand());
-            session.AssetViewProperties.RegisterNodePresenterCommand(new PickupEntityCommand(session));
-            session.AssetViewProperties.RegisterNodePresenterCommand(new PickupEntityComponentCommand(session));
+            session.AssetViewProperties.RegisterNodePresenterCommand(new PickupEntityCommand());
+            session.AssetViewProperties.RegisterNodePresenterCommand(new PickupEntityComponentCommand());
             session.AssetViewProperties.RegisterNodePresenterCommand(new EditCurveCommand(session));
             session.AssetViewProperties.RegisterNodePresenterCommand(new SkeletonNodePreserveAllCommand());
             //TODO: Add back once properly implemented.
             //session.AssetViewProperties.RegisterNodePresenterCommand(new AddNewScriptComponentCommand());
 
             session.AssetViewProperties.RegisterNodePresenterUpdater(new AnimationAssetNodeUpdater());
-            session.AssetViewProperties.RegisterNodePresenterUpdater(new CameraSlotNodeUpdater(session));
+            session.AssetViewProperties.RegisterNodePresenterUpdater(new CameraSlotNodeUpdater());
             session.AssetViewProperties.RegisterNodePresenterUpdater(new EntityHierarchyAssetNodeUpdater());
             session.AssetViewProperties.RegisterNodePresenterUpdater(new EntityHierarchyEditorNodeUpdater());
             session.AssetViewProperties.RegisterNodePresenterUpdater(new GameSettingsAssetNodeUpdater());
@@ -229,6 +233,24 @@ namespace Stride.Assets.Presentation
         public override void RegisterPrimitiveTypes(ICollection<Type> primitiveTypes)
         {
             primitiveTypes.Add(typeof(AssetReference));
+        }
+
+        /// <inheritdoc />
+        public override void RegisterAssetPreviewViewTypes(IDictionary<Type, Type> assetPreviewViewTypes)
+        {
+            var pluginAssembly = GetType().Assembly;
+            foreach (var type in pluginAssembly.GetTypes())
+            {
+                if (!typeof(IPreviewView).IsAssignableFrom(type))
+                {
+                    continue;
+                }
+
+                foreach (var attribute in type.GetCustomAttributes<AssetPreviewViewAttribute>())
+                {
+                    assetPreviewViewTypes.Add(attribute.AssetPreviewType, type);
+                }
+            }
         }
 
         /// <inheritdoc />

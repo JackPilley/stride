@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using Microsoft.Build.Locator;
 using Mono.Options;
 using Stride.Core.Assets.CompilerApp.Tasks;
@@ -20,7 +21,7 @@ namespace Stride.Core.Tasks
             {
                 MSBuildLocator.RegisterDefaults();
             }
-            catch (InvalidOperationException e) when (e.Message.StartsWith("No instances of MSBuild could be detected."))
+            catch (InvalidOperationException e) when (e.Message.StartsWith("No instances of MSBuild could be detected.", StringComparison.Ordinal))
             {
                 // When tasks running through build tools throw, it logs an obtuse 'The command [...]/Stride.Core.Tasks.exe [...] exited with code - x'
                 // message requiring the user to dig in the output to figure out what happened.
@@ -77,6 +78,9 @@ namespace Stride.Core.Tasks
                 {
                     case "locate-devenv":
                     {
+                        if(!OperatingSystem.IsWindows())
+                            throw new OptionException("This option is only available on Windows", "");
+                            
                         if (commandArgs.Count != 2)
                             throw new OptionException("Need one extra argument", "");
                         var devenvPath = LocateDevenv.FindDevenv(commandArgs[1]);
