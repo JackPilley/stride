@@ -474,10 +474,7 @@ namespace Stride.Graphics
         internal Texture InitializeFrom(Texture parentTexture, TextureDescription description, TextureViewDescription viewDescription, DataBox[] textureDatas = null)
         {
             ParentTexture = parentTexture;
-            if (ParentTexture != null)
-            {
-                ParentTexture.AddReferenceInternal();
-            }
+            ParentTexture?.AddReferenceInternal();
 
             textureDescription = description;
             textureViewDescription = viewDescription;
@@ -1143,8 +1140,8 @@ namespace Stride.Graphics
             if (Usage == GraphicsResourceUsage.Staging)
                 return GetDataAsImage(commandList, this); // Directly if this is a staging resource
 
-            using (var stagingTexture = ToStaging())
-                return GetDataAsImage(commandList, stagingTexture);
+            using var stagingTexture = ToStaging();
+            return GetDataAsImage(commandList, stagingTexture);
         }
 
         /// <summary>
@@ -1264,7 +1261,7 @@ namespace Stride.Graphics
                     mipCount = this.MipLevels;
                     break;
                 case ViewType.Single:
-                    arrayOrDepthCount = 1;
+                    arrayOrDepthCount = ViewDimension == TextureDimension.Texture3D ? CalculateMipSize(Depth, mipIndex) : 1;
                     mipCount = 1;
                     break;
                 case ViewType.MipBand:
